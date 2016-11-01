@@ -1,0 +1,6 @@
+<% for work in @works %>
+    <div>
+        <%= image_tag work.image.gallery.url %>
+        <p><%= work.name %></p>
+    </div>
+<% end %>
