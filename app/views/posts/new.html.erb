@@ -1,5 +1,6 @@
 <%= simple_form_for @post do |f| %>
   <%= f.input :title, label: 'Post Title', error: 'Posts need titles' %>
   <%= f.input :body, hint: 'Type post here' %>
+  <%= f.file_field :image %>
   <%= f.button :submit %>
 <% end %>
