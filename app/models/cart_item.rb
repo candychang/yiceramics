@@ -1,3 +1,3 @@
 class CartItem < ActiveRecord::Base
-    belongs_to :cart_session
+    belongs_to :cart
 end
