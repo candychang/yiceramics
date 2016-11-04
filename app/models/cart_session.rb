@@ -1,15 +1,17 @@
 class CartSession
     def initialize(session)
         @session = session
-        @session[:cart] ||= {}
+        @session[:cart] ||= Cart.create.id
     end
 
-    #Cart Count
-    def cart_count
+    def cart
         if (@session[:cart] && @session[:cart] != {})
-            @session[:cart].item_count
+            return Cart.find_by_id(@session[:cart])
         else
-            0
+            cart = Cart.create
+            @session[:cart] = cart.id
+            return cart
         end
     end
+            
 end
