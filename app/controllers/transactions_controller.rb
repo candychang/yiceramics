@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
         )
         if @result.success?
         #   current_user.purchase_cart_movies!
-          render :new, notice: "Congraulations! Your transaction has been successfully processed!"
+          redirect_to :new, notice: "Congraulations! Your transaction has been successfully processed!"
         else
           flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
           gon.client_token = generate_client_token
