@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :posts
   resources :works
+  resources :carts, only: :show
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
