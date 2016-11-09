@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>Workspace</title>
-  <%= include_gon %>
   <script src="https://js.braintreegateway.com/js/braintree-2.29.0.min.js"></script>
-  <%= stylesheet_link_tag    "application", media: "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application", controller_name %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= include_gon(init: true) %>
 <% flash.each do |key, value| %>
   <%= content_tag :div, value, class: "flash #{key}" %>
 <% end %>
