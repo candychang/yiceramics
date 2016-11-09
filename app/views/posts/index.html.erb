@@ -1,4 +1,6 @@
-<% for p in @posts %>
-    <h1><%= p.title %></h1>
-    <p><%= p.body %></p>
-<% end %>
+<div ng-app="yiceramics" ng-controller="PostCtrl" class="container">
+    <div ng-repeat="post in posts">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.body }}</p>
+    </div>
+</div>
