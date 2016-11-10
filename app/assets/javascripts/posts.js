@@ -1,4 +1,4 @@
-angular.module('yiceramics', [])
+angular.module('posts', [])
 .controller('PostCtrl', [
     '$scope',
     function($scope){

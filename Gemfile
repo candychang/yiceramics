@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'simple_form'
 
 gem 'angularjs-rails'
+gem 'angular-rails4-templates' 
 
 gem 'bootstrap-sass'
 
