@@ -1,4 +1,4 @@
-angular.module('yiceramics', [])
+angular.module('home', [])
 .controller('MainCtrl', [
     '$scope',
     function($scope){
