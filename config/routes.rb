@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
+  # namespace :admin do
+  #   root "admin#index"
+  # end
+ 
+  root "home#index"
   resources :posts
   resources :works
   resources :carts, only: :show

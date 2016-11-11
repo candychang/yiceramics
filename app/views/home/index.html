@@ -1,0 +1,12 @@
+<body ng-app="home" ng-controller="MainCtrl">
+  <%= image_tag("yiceramics.png", alt: "yiceramics logo") %>
+  <div class="navtext">
+    <h1> Yi Ceramics </h1>
+      <ul ng-repeat= "nav in toc">
+        <li>{{nav}}</li>
+      </ul>
+  </div>
+  <div ng-repeat="pic in photos">
+    <img ng-src="{{pic.imageUrl}}" alt="{{pic.name}}" />
+  </div>
+</body>
