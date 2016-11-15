@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :works
   resources :carts, only: :show
   resources :transactions, only: [:new, :create]
+  resources :shop, only: [:index, :show]
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
