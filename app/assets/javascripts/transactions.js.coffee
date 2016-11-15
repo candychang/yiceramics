@@ -3,4 +3,5 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-     braintree.setup(gon.client_token, 'dropin', { container: 'dropin-container' });
+    unless typeof gon is 'undefined'
+        braintree.setup(gon.client_token, 'dropin', { container: 'dropin-container' });

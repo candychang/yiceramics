@@ -1,0 +1,11 @@
+<div ng-app="shop" ng-controller="ShopCtrl"class="container">
+    <h1>Shop</h1>
+    <div ng-repeat="product in inventory" class="col-md-4 panel">
+        <img ng-src="{{product.image.thumb.url}}"/>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.details }}</p>
+        <p>Size: {{ size }}</p>
+        <p>Clay type: {{ product.clay_type }}</p>
+        <p>Firing: {{ product.fire_type }}</p>
+    </div>
+</div>
