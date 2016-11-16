@@ -9,11 +9,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   
-
-  def user_session
-    @user_session ||= UserSession.new(session)
+  def current_cart
+      @cart_session ||= CartSession.new(session)
+      @cart = @cart_session.cart
   end
-  helper_method :user_session
-
-
+  helper_method :current_cart
 end

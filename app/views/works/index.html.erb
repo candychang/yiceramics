@@ -1,6 +1,7 @@
 <% for work in @works %>
     <div>
         <%= image_tag work.image.gallery.url %>
-        <p><%= work.name %></p>
+        <%= link_to work.name, work_path(work.id) %>
+        <%= link_to "edit", edit_work_path(work.id) %>
     </div>
 <% end %>
