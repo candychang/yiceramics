@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   root "home#index"
   resources :posts
   resources :works
-  resources :carts, only: :show
+  resource :cart, only: :show do
+    put 'add/:work_id', to: 'carts#add', as: :add_to
+    put 'remove/:work_id', to: 'carts#remove', as: :remove_from
+  end
   resources :transactions, only: [:new, :create]
   resources :shop, only: [:index, :show]
   # You can have the root of your site routed with "root"

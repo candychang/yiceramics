@@ -11,10 +11,14 @@ class WorksController < ApplicationController
       @work = Work.find_by_id(params[:id])
   end
   
+  def edit
+    @work = Work.find_by_id(params[:id])
+  end
+  
   def new
       @work = Work.new
   end
-  
+
   def create
       @work = Work.create(work_params)
       if @work.save!

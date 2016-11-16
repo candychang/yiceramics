@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161102024845) do
+ActiveRecord::Schema.define(version: 20161116011720) do
 
   create_table "cart_items", force: :cascade do |t|
     t.decimal  "unit_price",  precision: 12, scale: 3
@@ -19,7 +19,12 @@ ActiveRecord::Schema.define(version: 20161102024845) do
     t.decimal  "total_price", precision: 12, scale: 3
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.integer  "work_id"
+    t.integer  "cart_id"
   end
+
+  add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id"
+  add_index "cart_items", ["work_id"], name: "index_cart_items_on_work_id"
 
   create_table "cart_sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -44,9 +49,12 @@ ActiveRecord::Schema.define(version: 20161102024845) do
     t.string   "size"
     t.string   "clay_type"
     t.string   "fire_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "image"
+    t.integer  "quantity",                            default: 1
+    t.decimal  "price",      precision: 12, scale: 3
+    t.integer  "cone"
   end
 
 end
