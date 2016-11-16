@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
 respond_to :json
   def show
-      respond_with current_cart.as_json
+      respond_with current_cart.cart_items.as_json
   end
   
   #use respond_with instead
