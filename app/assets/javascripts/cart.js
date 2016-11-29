@@ -1,18 +1,19 @@
-angular.module('cart', ['ng-Route'])
-.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/cart', {
-        templateUrl: '/views/carts/show.html',
-        controller: 'CartCtrl'
-    });
-}])
+angular.module('cart', [])
 .controller('CartCtrl', [
-    '$scope', '$http',
-    function($scope, $http) {
+    '$scope', '$http', 'cartService',
+    function($scope, $http, cartService) {
        $scope.cart_items = [];
        $http.get('/cart.json').success(function(data){
             angular.copy(data, $scope.cart_items);
         });
         $scope.count = 0;
+        $scope.addItem = function($http) {
+            //send http reuest here/???
+    
+        };
+        $scope.removeItem = function($http) {
+            //send http request to rails he22re??
+        };
     }
     
 ]);

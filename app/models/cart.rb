@@ -5,7 +5,13 @@ class Cart < ActiveRecord::Base
         return cart_items.count
     end
     
-    def add_item(item)
-        cart_items << item
+    #need to create cart item lol
+    def add_item(item_id)
+        item = CartItem.find(work_id: item_id, cart_id: self.id)
+        if item
+            cart_items << item
+        else
+            return false
+        end
     end
 end

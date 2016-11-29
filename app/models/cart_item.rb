@@ -7,6 +7,18 @@ class CartItem < ActiveRecord::Base
     validates :work_available
     validates :cart, presence: true
     
+    def increase_quantity(amt)
+      work.remove_stock(amt)
+      quantity += amt
+    end
+    
+    def decrease_quantity(amt)
+      amt = (quantity > amt) ? amt : quantity
+      work.add_stock(amt)
+      quantity -= amt
+    end
+    
+    
     private
     
     def work_available
