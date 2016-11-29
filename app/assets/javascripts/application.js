@@ -14,5 +14,5 @@
 //= require bootstrap
 //= require angular
 //= require angular-rails4-templates
-//= require angular-route
+//= require angular-resource
 //= require_tree .
