@@ -11,7 +11,9 @@ function ShoppingCart(cartName) {
             this.items = cart.items;
             this.totalCount = cart.totalCount;
             this.totalPrice = cart.totalPrice;
+            
         }
+        storeWithExpiration.set(cartName, this);
     } else {
         alert('Local storage is not supported by your browser - the shopping cart will not work. Please disable "Private Mode", or upgrade to a modern browser.')
     };
@@ -82,7 +84,8 @@ var storeWithExpiration = {
         if (new Date().getTime() - info.time > this.expiration) {
             return null;
         };
-        return JSON.parse(info.val);
+        var cart = JSON.parse(info);
+        return cart.val;
     }
 };
 
