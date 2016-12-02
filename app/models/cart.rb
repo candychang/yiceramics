@@ -7,11 +7,11 @@ class Cart < ActiveRecord::Base
     
     #need to create cart item lol
     def add_item(item_id)
-        item = CartItem.find(work_id: item_id, cart_id: self.id)
+        item = Cart.cart_items.find_by_id(work_id: item_id)
         if item
-            cart_items << item
+            item.quantity += 1
         else
-            return false
+            item = Cart.new(work_id: item_id, cart_id: self.id, quantity: 1)
         end
     end
 end

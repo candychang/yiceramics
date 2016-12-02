@@ -1,11 +1,11 @@
-<div ng-app="shop" ng-controller="ShopCtrl"class="container">
+<div ng-controller="ShopCtrl"class="container">
     <h1>Shop</h1>
     <div class="row">
         <div class="col-md-8">
             <h3>Products</h3>
         </div>
         <div class="col-md-4">
-            <h4>Cart: {{count}} </h4>
+            <h4>Cart: {{cart.totalCount}} </h4>
         </div>
         
     </div>
@@ -17,6 +17,8 @@
         <p>Size: {{ size }}</p>
         <p>Clay type: {{ product.clay_type }}</p>
         <p>Firing: {{ product.fire_type }}</p>
-        <button class="btn btn-primary" ng-click="addCart()"> {{ cart_message }}</button>
+        <p>Price: {{ product.price | currency }}</p>
+        <button class="btn" ng-class="{true: 'btn-secondary', false: 'btn-primary'}"[product.inCart] ng-click="toggleCart(product)"</button>{{ product.inCart && "Remove from Cart" || "Add to Cart" }}</button>
+        
     </div>
 </div>

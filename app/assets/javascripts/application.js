@@ -15,4 +15,6 @@
 //= require angular
 //= require angular-rails4-templates
 //= require angular-resource
+//= requre shoppingCart.js
+//= requre main.js
 //= require_tree .
