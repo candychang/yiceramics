@@ -41,6 +41,11 @@ describe("shoppingCart", function() {
       expect(cart.totalCount).toEqual(2);
       expect(cart.totalPrice).toEqual(20.00);
       
+      cart.addItem(2, 'testItem', 10.00, 2, 'image');
+      expect(cart.items).toContain({work_id: 2, name: 'testItem', price: 10.00, quantity: 2, imageURL: 'image'});
+      expect(cart.totalCount).toEqual(4);
+      expect(cart.totalPrice).toEqual(40.00);
+      
     });
     
     it("should update local storage", function() {
@@ -94,6 +99,7 @@ describe("shoppingCart", function() {
       expect(cart.items).toEqual([]);
     });
   });
+  
   
   describe("#storeWithExpiration", function(){
     beforeEach(function() {

@@ -6,6 +6,7 @@
         </div>
         <div class="col-md-4">
             <h4>Cart: {{cart.totalCount}} </h4>
+            <%= link_to "see cart", cart_path %>
         </div>
         
     </div>
@@ -18,7 +19,8 @@
         <p>Clay type: {{ product.clay_type }}</p>
         <p>Firing: {{ product.fire_type }}</p>
         <p>Price: {{ product.price | currency }}</p>
-        <button class="btn" ng-class="{true: 'btn-secondary', false: 'btn-primary'}"[product.inCart] ng-click="toggleCart(product)"</button>{{ product.inCart && "Remove from Cart" || "Add to Cart" }}</button>
-        
+        <p>Quantity: {{ product.quantity }}</p>
+        <button class="btn btn-primary"  ng-click="addItem(product)"</button>Add to Cart</button>
+        <button class="btn btn-secondary"  ng-click="removeItem(product.id)"</button>Remove from Cart</button>
     </div>
 </div>

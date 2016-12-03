@@ -1,6 +1,7 @@
 
-<div ng-controller="CartCtrl" class="container">
+<div ng-controller="ShopCtrl" class="container">
     <h1>Your Cart</h1>
+    <%= link_to "back to shop", shop_index_path %>
     <div class="row">
         <div class="col-md-6">
             <h3>Items</h3>
@@ -9,6 +10,7 @@
                 <h3>{{ item.name }}</h3>
                 <p>Price: {{ item.price * item.quantity | currency }}</p>
                 <p>Quantity: {{ item.quantity }}</p>
+                <button class="btn btn-secondary"  ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
             </div>
         </div>
         <div class="col-md-4">
