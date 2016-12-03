@@ -21,7 +21,8 @@ function ShoppingCart(cartName) {
 ShoppingCart.prototype.clearCart = function() {
     this.items = [];
     this.totalCount = 0;
-    storeWithExpiration.set(this.name, this)
+    this.totalPrice = 0.00;
+    storeWithExpiration.set(this.name, this);
 }
 
 ShoppingCart.prototype.addItem = function(id, name, price, quantity, img) {
@@ -76,6 +77,10 @@ ShoppingCart.prototype.findItemIndex = function(id) {
     };
     return -1
 };
+
+ShoppingCart.prototype.inCart = function(id) {
+    return this.findItemIndex(id) >= 0;
+}
 
 var storeWithExpiration = {
     expiration: 3,
