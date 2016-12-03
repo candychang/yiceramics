@@ -6,14 +6,13 @@ function ShoppingCart(cartName) {
             this.items = [];
             this.totalCount = 0;
             this.totalPrice = 0.00;
+            storeWithExpiration.set(cartName, this);
         } else {
-            this.name = cart.cartName;
+            this.name = cart.name;
             this.items = cart.items;
             this.totalCount = cart.totalCount;
             this.totalPrice = cart.totalPrice;
-            
         }
-        storeWithExpiration.set(cartName, this);
     } else {
         alert('Local storage is not supported by your browser - the shopping cart will not work. Please disable "Private Mode", or upgrade to a modern browser.')
     };
@@ -22,7 +21,7 @@ function ShoppingCart(cartName) {
 ShoppingCart.prototype.clearCart = function() {
     this.items = [];
     this.totalCount = 0;
-    storeWithExpiration.set(this.cartName, this)
+    storeWithExpiration.set(this.name, this)
 }
 
 ShoppingCart.prototype.addItem = function(id, name, price, quantity, img) {
@@ -33,17 +32,8 @@ ShoppingCart.prototype.addItem = function(id, name, price, quantity, img) {
         this.items.push(item);
         this.totalCount += quantity;
         this.totalPrice += quantity * item.price;
-    } else {
-        item = this.items[index];
-        if (item.quantity + quantity < 0) {
-            this.removeItemByIndex(index);
-        } else {
-            item.quantity += quantity;
-            this.totalCount += quantity;
-            this.totalPrice += item.quantity * item.price;
-        }
+        storeWithExpiration.set(this.name, this);
     }
-    storeWithExpiration.set(this.cartName, this);
 }
 
 ShoppingCart.prototype.removeItem = function(id) {
@@ -53,12 +43,29 @@ ShoppingCart.prototype.removeItem = function(id) {
 
 ShoppingCart.prototype.removeItemByIndex = function(index) {
     if (index >= 0) {
-        var item = this.items[index]
+        var item = this.items[index];
         this.items.splice(index, 1);
         this.totalCount -= item.quantity;
         this.totalPrice -= item.quantity * item.price;
     }
-    storeWithExpiration.set(this.cartName, this)
+    storeWithExpiration.set(this.name, this)
+}
+
+
+ShoppingCart.prototype.changeQuantity = function(id, newQuantity) {
+    var index = this.findItemIndex(id);
+    if (index >= 0) {
+        var item = this.items[index];
+        var toChange = newQuantity - item.quantity;
+        if (item.quantity + toChange <= 0) {
+            this.removeItemByIndex(index);
+        } else {
+            item.quantity += toChange;
+            this.totalCount += toChange;
+            this.totalPrice += toChange * item.price;
+            storeWithExpiration.set(this.name, this);
+        }
+    }
 }
 
 ShoppingCart.prototype.findItemIndex = function(id) {
@@ -73,19 +80,26 @@ ShoppingCart.prototype.findItemIndex = function(id) {
 var storeWithExpiration = {
     expiration: 3,
     set: function(key, val) {
-        var toStore = { val: val, time: new Date().getTime() };
-        window.localStorage.setItem(key, JSON.stringify(toStore));
+        var timestamp = new Date().getTime();
+        var toStore = { val: val, time: timestamp };
+        localStorage.setItem(key, JSON.stringify(toStore));
     },
     get: function(key) {
-        var info = window.localStorage.getItem(key);
+        var info = localStorage.getItem(key);
         if (!info) {
             return null;
         };
-        if (new Date().getTime() - info.time > this.expiration) {
+        info = JSON.parse(info);
+        if (!this.isValid(info.time)) {
+            localStorage.removeItem(key);
             return null;
         };
-        var cart = JSON.parse(info);
-        return cart.val;
+        return info.val;
+    },
+    isValid: function(toValidate) {
+        var now = new Date();
+        var then = new Date(toValidate);
+        return ((now.getTime() - then.getTime()) / 86400000) < this.expiration;
     }
 };
 
