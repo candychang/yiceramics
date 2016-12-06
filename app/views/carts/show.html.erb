@@ -5,16 +5,32 @@
     <div class="row">
         <div class="col-md-6">
             <h3>Items</h3>
-            <div ng-repeat="item in cart.items" class="panel">
+            <div ng-repeat="item in cart.items track by $index" class="panel">
                 <img ng-src="{{item.imageURL}}"/>
                 <h3>{{ item.name }}</h3>
                 <p>Price: {{ item.price * item.quantity | currency }}</p>
                 <p>Quantity: {{ item.quantity }}</p>
+                
+
+                  <!-- use type=tel instead of number to prevent spinners -->
+                  <input
+                    class="span3 text-center" type="tel" 
+                    ng-model="item.quantity" ng-change="cart.saveItems()"/>
+                  <button 
+                    class="btn btn-success" type="button" 
+                    ng-disabled="item.quantity >= 1000"
+                    ng-click="cart.changeQuantity(item.work_id, 1)">+
+                  </button>
+                  <button 
+                    class="btn btn-inverse" type="button" 
+                    ng-disabled="item.quantity <= 1"
+                    ng-click="cart.changeQuantity(item.work_id, -1)">-
+                  </button>
                 <button class="btn btn-secondary"  ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
             </div>
         </div>
         <div class="col-md-4">
-            <h3>Subtotal: {{ cart.totalPrice | currency }}</h3>
+            <h3>Subtotal: {{ cart.getTotalPrice() | currency }}</h3>
         </div>
     </div>
 </div>

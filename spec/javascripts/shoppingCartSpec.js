@@ -85,7 +85,9 @@ describe("shoppingCart", function() {
       cart = new ShoppingCart('TestCart5');
       cart.addItem(1, 'item1', 10.00, 2, 'image');
       cart.changeQuantity(1, 1);
-      expect(cart.items[0].quantity).toEqual(1);
+      expect(cart.items[0].quantity).toEqual(3);
+      expect(cart.totalCount).toEqual(3);
+      expect(cart.totalPrice).toEqual(30.00);
     });
     
     it("should update local storage", function() {
@@ -95,8 +97,10 @@ describe("shoppingCart", function() {
     
     it("should remove item from cart if quantity falls at or below zero", function() {
       cart = new ShoppingCart('TestCart5');
-      cart.changeQuantity(1, 0);
+      cart.changeQuantity(1, -3);
       expect(cart.items).toEqual([]);
+      expect(cart.totalCount).toEqual(0);
+      expect(cart.totalPrice).toEqual(0.00);
     });
   });
   
