@@ -5,7 +5,7 @@ angular.module('shop', [])
         $scope.inventory = [];
         $http.get('/shop.json').success(function(data){
             angular.copy(data, $scope.inventory);
-        });
+        });  
         $scope.cart = cartService.cart;
         $scope.addItem = function(product) {
             if(product.quantity > 0) {

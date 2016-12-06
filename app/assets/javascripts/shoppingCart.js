@@ -53,15 +53,17 @@ ShoppingCart.prototype.removeItemByIndex = function(index) {
 }
 
 
-ShoppingCart.prototype.changeQuantity = function(id, newQuantity) {
+ShoppingCart.prototype.changeQuantity = function(id, toChange) {
+    var toChange = this.toNumber(toChange);
+    
     var index = this.findItemIndex(id);
     if (index >= 0) {
         var item = this.items[index];
-        var toChange = newQuantity - item.quantity;
-        if (item.quantity + toChange <= 0) {
+        var itemQ = this.toNumber(item.quantity);var itemQ = this.toNumber(item.quantity);
+        if (itemQ + toChange <= 0) {
             this.removeItemByIndex(index);
         } else {
-            item.quantity += toChange;
+            item.quantity = itemQ + toChange;
             this.totalCount += toChange;
             this.totalPrice += toChange * item.price;
             storeWithExpiration.set(this.name, this);
@@ -78,9 +80,32 @@ ShoppingCart.prototype.findItemIndex = function(id) {
     return -1
 };
 
-ShoppingCart.prototype.inCart = function(id) {
-    return this.findItemIndex(id) >= 0;
-}
+ShoppingCart.prototype.saveItems = function() {
+    storeWithExpiration.set(this.name, this);
+};
+
+ShoppingCart.prototype.getTotalCount = function() {
+    var count = 0;
+    for (var i = 0; i < this.items.length; i++) {
+        var item = this.items[i];
+        count += this.toNumber(item.quantity);
+    }
+    return count;
+};
+
+ShoppingCart.prototype.getTotalPrice = function() {
+    var amt = 0;
+    for (var i = 0; i < this.items.length; i++) {
+        var item = this.items[i];
+        amt += this.toNumber(item.quantity) * item.price;
+    }
+    return amt;
+};
+
+ShoppingCart.prototype.toNumber = function (value) {
+    value = value * 1;
+    return isNaN(value) ? 0 : value;
+};
 
 var storeWithExpiration = {
     expiration: 3,
