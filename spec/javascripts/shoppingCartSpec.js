@@ -4,15 +4,15 @@ describe("shoppingCart", function() {
   var fakeItems = [
     {work_id: 1, name: 'test1', price: 10.00, quantity: 1, imageURL: 'image'},
     {work_id: 2, name: 'testt2', price: 10.00, quantity: 1, imageURL: 'image'},
-    {work_id: 3, name: 'test3', price: 10.00, quantity: 2, imageURL: 'image'}];
+    {work_id: 3, name: 'test3', price: 5.00, quantity: 2, imageURL: 'image'}];
   
   beforeAll(function() {
     localStorage.clear();
   })
   
-  afterAll(function() {
-    localStorage.clear();
-  });
+  // afterAll(function() {
+  //   localStorage.clear();
+  // });
   
   describe("when cart is initialized", function() {
 
@@ -23,11 +23,9 @@ describe("shoppingCart", function() {
     });
 
     it("should restore cart when existing cart is found", function() {
-      spyOn(storeWithExpiration, 'get').and.returnValue ({ cartName: 'TestCart', items: [{ work_id: 1}, {work_id: 2}], totalCount: 2, totalPrice: 10.00 });
+      spyOn(storeWithExpiration, 'get').and.returnValue ({ cartName: 'TestCart', items: [{ work_id: 1}, {work_id: 2}]});
       cart = new ShoppingCart('TestCart2');
       expect(cart.items.length).toEqual(2);
-      expect(cart.totalCount).toEqual(2);
-      expect(cart.totalPrice).toEqual(10.00);
     });
     
   });
@@ -38,13 +36,13 @@ describe("shoppingCart", function() {
       cart = new ShoppingCart('TestCart3');
       cart.addItem(1, 'testItem', 10.00, 2, 'image');
       expect(cart.items).toContain({work_id: 1, name: 'testItem', price: 10.00, quantity: 2, imageURL: 'image'});
-      expect(cart.totalCount).toEqual(2);
-      expect(cart.totalPrice).toEqual(20.00);
+      expect(cart.getTotalCount()).toEqual(2);
+      expect(cart.getTotalPrice()).toEqual(20.00);
       
       cart.addItem(2, 'testItem', 10.00, 2, 'image');
       expect(cart.items).toContain({work_id: 2, name: 'testItem', price: 10.00, quantity: 2, imageURL: 'image'});
-      expect(cart.totalCount).toEqual(4);
-      expect(cart.totalPrice).toEqual(40.00);
+      expect(cart.getTotalCount()).toEqual(4);
+      expect(cart.getTotalPrice()).toEqual(40.00);
       
     });
     
@@ -62,16 +60,14 @@ describe("shoppingCart", function() {
     it("should remove item from cart", function() {
       
       cart = new ShoppingCart('TestCart4');
-      cart.items = fakeItems;
-      cart.totalCount = 4;
-      cart.totalPrice = 40;
-      storeWithExpiration.set('TestCart4', cart);
+      cart.items = fakeItems.slice();
+      cart.saveItems();
       
       cart.removeItem(2);
       expect(cart.items).not.toContain({work_id: 2, name: 'test2', price: 10.00, quantity: 1, imageURL: 'image'});
       expect(cart.items.length).toEqual(2);
-      expect(cart.totalCount).toEqual(3);
-      expect(cart.totalPrice).toEqual(30.00);
+      expect(cart.getTotalCount()).toEqual(3);
+      expect(cart.getTotalPrice()).toEqual(20.00);
     });
     
     it("should update local storage", function() {
@@ -86,8 +82,6 @@ describe("shoppingCart", function() {
       cart.addItem(1, 'item1', 10.00, 2, 'image');
       cart.changeQuantity(1, 1);
       expect(cart.items[0].quantity).toEqual(3);
-      expect(cart.totalCount).toEqual(3);
-      expect(cart.totalPrice).toEqual(30.00);
     });
     
     it("should update local storage", function() {
@@ -99,8 +93,45 @@ describe("shoppingCart", function() {
       cart = new ShoppingCart('TestCart5');
       cart.changeQuantity(1, -3);
       expect(cart.items).toEqual([]);
-      expect(cart.totalCount).toEqual(0);
-      expect(cart.totalPrice).toEqual(0.00);
+    });
+  });
+  
+  describe("#clearCart", function() {
+    
+    it("should remove all items from cart", function() {
+      cart = new ShoppingCart('TestCart6');
+      cart.items = fakeItems.slice();
+      cart.saveItems();
+      cart.clearCart();
+      
+      expect(cart.items).toEqual([]);
+    });
+    
+    it("should update local storage", function() {
+      testCart = new ShoppingCart('TestCart6');
+      expect(testCart).toEqual(cart);
+    });
+    
+  });
+  
+  describe("#getTotalCount", function() {
+    
+    it("should return total number of items", function() {
+      cart = new ShoppingCart('TestCart7');
+      cart.items = fakeItems.slice();
+      cart.saveItems();
+      
+      expect(cart.getTotalCount()).toEqual(4);
+    });
+  });
+  
+  describe("#getTotalPrice", function() {
+    it("should return total number of items", function() {
+      cart = new ShoppingCart('TestCart8');
+      cart.items = fakeItems;
+      cart.saveItems();
+      
+      expect(cart.getTotalPrice()).toEqual(30.00);
     });
   });
   
