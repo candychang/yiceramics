@@ -9,17 +9,19 @@
             <div ng-repeat="item in cart.items track by $index" class="panel">
                 <img ng-src="{{item.imageURL}}"/>
                 <h3>{{ item.name }}</h3>
-                <p>Price: {{ item.price * item.quantity | currency }}</p>
+                <p>Unit Price: {{ item.price | currency }}</p>
                 <p>Quantity: {{ item.quantity }}</p>
+                <p ng-show="item.quantity > 1">Total Price: {{ item.price * item.quantity | currency }}</p>
                 
-
+                  <form name="form" class="css-form" novalidate>
                   <!-- use type=tel instead of number to prevent spinners -->
-                  <input
-                    class="span3 text-center" type="tel" 
-                    ng-model="item.quantity" ng-change="cart.saveItems()"/>
+                  <input name="quantity"
+                    class="span3 text-center" type="tel"
+                    ng-model="item.quantity" ng-change="cart.saveItems()" integer/>
+                    
                   <button 
                     class="btn btn-success" type="button" 
-                    ng-disabled="item.quantity >= 1000"
+                    ng-disabled="outOfStock(item.work_id, item.quantity)"
                     ng-click="cart.changeQuantity(item.work_id, 1)">+
                   </button>
                   <button 
@@ -27,7 +29,10 @@
                     ng-disabled="item.quantity <= 1"
                     ng-click="cart.changeQuantity(item.work_id, -1)">-
                   </button>
-                <button class="btn btn-secondary"  ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
+                  <button class="btn btn-secondary"  ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
+                  </br>
+                  <span ng-show="form.quantity.$error.integer">Valid quantity range: 1 to {{getStock(item)}}</span>
+                  </form>
             </div>
         </div>
         <div class="col-md-4">

@@ -6,42 +6,66 @@ mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop'])
   return {
       cart: cartService
   };
-}]);
-// .factory('productService', ['$http', function($http) {
-//   var allProducts= { 
-//     list: [],
-//     loaded: false,
-//     needsUpdate: true
-//   }
+}])
+.factory('productService', ['$http', function($http) {
+  var allProducts= { 
+    list: [],
+    loaded: false,
+  }
   
-//   var onlyGallery = {
-//     list: [],
-//     loaded: false,
-//     needsUpdate: true
-//   }
+  var onlyGallery = {
+    list: [],
+    loaded: false,
+  }
   
-//   if (allProducts.loaded == false || allProducts.needsUpdate == true) {
-//     $http.get('/shop.json').success(function(data){
-//             angular.copy(data, allProducts.list);
-//             allProducts.loaded = true;
-//             allProducts.needsUpdate = false;
-//     }); 
-//   }
+  var cachedProducts = [];
   
-//   if (onlyGallery.loaded == false || onlyGallery.needsUPdate == true) {
-//     $http.get('/works.json').success(function(data){
-//             angular.copy(data, onlyGallery.list);
-//             onlyGallery.loaded = true;
-//             onlyGallery.needsUpdate = false;
-//   }); 
-//   }
+  if (allProducts.loaded == false) {
+    $http.get('/shop.json').success(function(data){
+            angular.copy(data, allProducts.list);
+            allProducts.loaded = true;
+            cachedProducts = [];
+    }); 
+  }
+  
+  if (onlyGallery.loaded == false) {
+    $http.get('/works.json').success(function(data){
+            angular.copy(data, onlyGallery.list);
+            onlyGallery.loaded = true;
+  }); 
+  }
+  
+  var stockLeft = function(id) {
+    var currItem;
+    var found = false;
+    for (var i = 0; i < cachedProducts.length; i++) {
+      currProduct = cachedProducts[i];
+      if (currProduct.id == id) {
+        found = true;
+        return currProduct.quantity * 1;
+      }
+    }
+    
+    if (!found) {
+      for (var j = 0; j < allProducts.list.length; j++) {
+        currProduct = allProducts.list[j];
+        if (currProduct.id == id) {
+          found = true;
+          return currProduct.quantity * 1;
+        }
+      }
+    }
+    
+    return 0;
+  }
    
   
-//   return {
-//     products: allProducts.list,
-//     gallery: onlyGallery.list
-//   };
+  return {
+    products: allProducts.list,
+    gallery: onlyGallery.list,
+    stockLeft: stockLeft,
+  };
   
-// }]);
+}]);
 
 

@@ -155,17 +155,6 @@ describe("shoppingCart", function() {
       expect(storeWithExpiration.isValid(invalidDate)).toBeFalsy();
     });
     
-    xit("should store values in local storage with a timestamp", function() {
-      //can't spy on localstore rn fix later
-    });
-    
-    xit("should return null when value timestamp has expired", function() {
-      
-    });
-    
-    xit("should return the value when timestamp is valid", function() {
-      
-    });
   });
 
 
