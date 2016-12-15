@@ -6,6 +6,8 @@ angular.module('cart', [])
        $scope.updateCart = function() {
            storeWithExpiration(cart.name, cart);
        }
+       
+       
     }
     
 ]);

@@ -36,7 +36,7 @@ mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop'])
   }
   
   var stockLeft = function(id) {
-    var currItem;
+    var currProduct;
     var found = false;
     for (var i = 0; i < cachedProducts.length; i++) {
       currProduct = cachedProducts[i];

@@ -18,7 +18,7 @@
                   <input name="quantity"
                     class="span3 text-center" type="tel"
                     ng-model="item.quantity" ng-change="cart.saveItems()" integer/>
-                    
+                        
                   <button 
                     class="btn btn-success" type="button" 
                     ng-disabled="outOfStock(item.work_id, item.quantity)"
@@ -29,14 +29,18 @@
                     ng-disabled="item.quantity <= 1"
                     ng-click="cart.changeQuantity(item.work_id, -1)">-
                   </button>
-                  <button class="btn btn-secondary"  ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
+                  <button class="btn btn-secondary"  type="button"ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
                   </br>
                   <span ng-show="form.quantity.$error.integer">Valid quantity range: 1 to {{getStock(item)}}</span>
+                  <span ng-show="form.quantity.$error.parse">Quantity must be a number</span>
                   </form>
             </div>
         </div>
         <div class="col-md-4">
             <h3>Subtotal: {{ cart.getTotalPrice() | currency }}</h3>
+            <h3>Shipping</h3>
+            <h3>Tax</h3>
+            <a href="#" ng-click="startCheckout()">Checkout Items</a>
         </div>
     </div>
 </div>

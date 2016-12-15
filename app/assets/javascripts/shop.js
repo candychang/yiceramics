@@ -3,6 +3,7 @@ angular.module('shop', [])
     '$scope', '$http', 'cartService', 'productService',
     function($scope, $http, cartService, productService) {
         $scope.inventory = productService.products;
+        $scope.service = productService;
         // $http.get('/shop.json').success(function(data){
         //     angular.copy(data, $scope.inventory);
         // });  
@@ -18,17 +19,27 @@ angular.module('shop', [])
         };   
         $scope.removeItem = function(product) {
             this.cart.removeItem(product.id);
-        }
+        };
         
         $scope.inStock = function(id, quantity) {
             var amt = productService.stockLeft(id);
             return quantity <= amt;
-        }
+        };
         
         $scope.outOfStock = function(id, quantity) {
             var amt = productService.stockLeft(id);
             return quantity >= amt;
-        }
+        };
+        
+        $scope.startCheckout = function() {
+            $http.put('/cart/confirm', {items: $scope.cart.items}).success(function(data){
+                angular.copy(data, $scope.cart.items);
+                alert("updated?");
+                $scope.updateCart();
+                
+            });
+            
+       };
 }])
 
 .directive('integer', function() {
@@ -36,19 +47,23 @@ angular.module('shop', [])
   return {
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
-      ctrl.$validators.integer = function(modelValue, viewValue) {
-        if (ctrl.$isEmpty(modelValue)) {
-          // consider empty models to be valid
-          return true;
-        }
         
-        if (INTEGER_REGEXP.test(viewValue)) {
-            var value = viewValue *1;
-            return scope.inStock(scope.item.work_id, value);
-        }
-
-        // it is invalid
-        return false;
+        function fromInput(value) {
+            var val = parseInt(value);
+            return val;
+        };
+        
+        function toInput(value) {
+            var val = parseInt(value);
+            return val;
+        };
+        
+        ctrl.$parsers.push(fromInput);
+        ctrl.$formatters.push(toInput);
+      
+      
+      ctrl.$validators.integer = function(modelValue, viewValue) {
+          return scope.inStock(scope.item.work_id, modelValue);
       };
     }
   };

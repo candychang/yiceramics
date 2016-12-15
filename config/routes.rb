@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resource :cart, only: :show do
     put 'add/:work_id', to: 'carts#add', as: :add_to
     put 'remove/:work_id', to: 'carts#remove', as: :remove_from
+    put 'confirm', to: 'carts#confirm'
   end
   resources :transactions, only: [:new, :create]
   resources :shop, only: [:index, :show]
