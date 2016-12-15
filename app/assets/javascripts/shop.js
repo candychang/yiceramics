@@ -31,12 +31,17 @@ angular.module('shop', [])
             return quantity >= amt;
         };
         
+        $scope.errors = ['hi'];
+        
         $scope.startCheckout = function() {
             $http.put('/cart/confirm', {items: $scope.cart.items}).success(function(data){
-                angular.copy(data, $scope.cart.items);
+                angular.copy(data.items, $scope.cart.items);
                 alert("updated?");
-                $scope.updateCart();
-                
+                $scope.cart.saveItems();
+                angular.copy(data.errors, $scope.errors);
+                if (data.errors.length > 0) {
+                    productService.loadProducts(true);
+                }
             });
             
        };

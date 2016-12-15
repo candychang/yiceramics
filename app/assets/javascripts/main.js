@@ -20,20 +20,24 @@ mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop'])
   
   var cachedProducts = [];
   
-  if (allProducts.loaded == false) {
-    $http.get('/shop.json').success(function(data){
-            angular.copy(data, allProducts.list);
-            allProducts.loaded = true;
-            cachedProducts = [];
-    }); 
-  }
   
-  if (onlyGallery.loaded == false) {
-    $http.get('/works.json').success(function(data){
-            angular.copy(data, onlyGallery.list);
-            onlyGallery.loaded = true;
-  }); 
-  }
+  
+  var loadProducts = function(reload) {
+      if (reload || allProducts.loaded == false) {
+        $http.get('/shop.json').success(function(data){
+                angular.copy(data, allProducts.list);
+                allProducts.loaded = true;
+                cachedProducts = [];
+        }); 
+      }
+    
+    if (onlyGallery.loaded == false) {
+      $http.get('/works.json').success(function(data){
+              angular.copy(data, onlyGallery.list);
+              onlyGallery.loaded = true;
+      }); 
+    }
+  };
   
   var stockLeft = function(id) {
     var currProduct;
@@ -59,11 +63,12 @@ mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop'])
     return 0;
   }
    
-  
+  loadProducts(true);
   return {
     products: allProducts.list,
     gallery: onlyGallery.list,
     stockLeft: stockLeft,
+    loadProducts: loadProducts
   };
   
 }]);

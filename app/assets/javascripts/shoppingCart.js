@@ -44,16 +44,13 @@ ShoppingCart.prototype.removeItemByIndex = function(index) {
 
 
 ShoppingCart.prototype.changeQuantity = function(id, toChange) {
-    var toChange = this.toNumber(toChange);
-    
     var index = this.findItemIndex(id);
     if (index >= 0) {
         var item = this.items[index];
-        var itemQ = this.toNumber(item.quantity);var itemQ = this.toNumber(item.quantity);
-        if (itemQ + toChange <= 0) {
+        if (item.quantity + toChange <= 0) {
             this.removeItemByIndex(index);
         } else {
-            item.quantity = itemQ + toChange;
+            item.quantity += toChange;
             storeWithExpiration.set(this.name, this);
         }
     }
@@ -76,7 +73,7 @@ ShoppingCart.prototype.getTotalCount = function() {
     var count = 0;
     for (var i = 0; i < this.items.length; i++) {
         var item = this.items[i];
-        count += this.toNumber(item.quantity);
+        count += item.quantity;
     }
     return count;
 };
@@ -85,15 +82,11 @@ ShoppingCart.prototype.getTotalPrice = function() {
     var amt = 0;
     for (var i = 0; i < this.items.length; i++) {
         var item = this.items[i];
-        amt += this.toNumber(item.quantity) * item.price;
+        amt += item.quantity * item.price;
     }
     return amt;
 };
 
-ShoppingCart.prototype.toNumber = function (value) {
-    value = value * 1;
-    return isNaN(value) ? 0 : value;
-};
 
 var storeWithExpiration = {
     expiration: 3,
