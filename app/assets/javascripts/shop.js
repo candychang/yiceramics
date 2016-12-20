@@ -31,14 +31,14 @@ angular.module('shop', [])
             return quantity >= amt;
         };
         
-        $scope.errors = ['hi'];
+        $scope.errorReport = [];
         
         $scope.startCheckout = function() {
             $http.put('/cart/confirm', {items: $scope.cart.items}).success(function(data){
                 angular.copy(data.items, $scope.cart.items);
                 alert("updated?");
                 $scope.cart.saveItems();
-                angular.copy(data.errors, $scope.errors);
+                angular.copy(data.errors, $scope.errorReport);
                 if (data.errors.length > 0) {
                     productService.loadProducts(true);
                 }
@@ -68,7 +68,7 @@ angular.module('shop', [])
       
       
       ctrl.$validators.integer = function(modelValue, viewValue) {
-          return scope.inStock(scope.item.work_id, modelValue);
+          return scope.inStock(scope.item.work_id, parseInt(viewValue));
       };
     }
   };
