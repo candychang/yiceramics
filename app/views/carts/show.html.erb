@@ -2,7 +2,7 @@
 <div ng-controller="ShopCtrl" class="container">
     <h1>Your Cart</h1>
     <%= link_to "back to shop", shop_index_path %>
-    <div ng-repeat"error in errors">
+    <div ng-repeat="error in errorReport" ng-show="errorReport.length > 0">
       <p>{{error}}</p>
     </div>
     <div class="row">
