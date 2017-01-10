@@ -1,7 +1,10 @@
-<% for work in @works %>
-    <div>
-        <%= image_tag work.image.gallery.url %>
+<div class="row">
+    <% for work in @works %>
+    <div class="col-xs-6 col-md-3">
+        <%= image_tag(work.image.gallery.url, class: "thumbnail", height:"200px") %>
         <%= link_to work.name, work_path(work.id) %>
         <%= link_to "edit", edit_work_path(work.id) %>
     </div>
-<% end %>
+    <% end %>
+    
+</div>
