@@ -1,12 +1,25 @@
-<body ng-app="home" ng-controller="MainCtrl">
-  <%= image_tag("yiceramics.png", alt: "yiceramics logo") %>
-  <div class="navtext">
-    <h1> Yi Ceramics </h1>
-      <ul ng-repeat= "nav in toc">
-        <li>{{nav}}</li>
-      </ul>
+<body>
+
+  
+  <div class="jumbotron">
+    <div class="container">
+      <%= image_tag("fourtaiwans.jpg", alt: "dish", class: "img-responsive") %>
+    </div>    
   </div>
-  <div ng-repeat="pic in photos">
-    <img ng-src="{{pic.imageUrl}}" alt="{{pic.name}}" />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>About</h1>
+        <p>Yi Ceramics is the pottery studio of Li Yi Huang.</p>
+      </div>
+      <div class="col-md-4">
+        <ul>
+          <li>facebook</li>
+          <li>instagram</li>
+          <li>yiceramics@gmail.com</li>
+        </ul>
+      </div>
+    </div>
+    
   </div>
 </body>
