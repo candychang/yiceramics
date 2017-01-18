@@ -13,3 +13,17 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.navbar, .navbar-default {
+    background-color: #fff;
+    border: none;
+    
+    li {
+
+        a.navbar-link:hover {
+            border-bottom: 5px solid;
+            border-color: #61142A;
+            color: #61142A;
+        }
+    }
+}
