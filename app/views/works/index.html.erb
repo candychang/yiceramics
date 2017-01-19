@@ -1,19 +1,23 @@
-<div class="container">
-    <h2>la la land</h2>
-    <div class="row">
-        <% for work in @works %>
-        <div class="col-xs-6 col-md-3">
-            <%= link_to image_tag(work.image.gallery.url, alt: work.name, class: "gallery-img"), work_path(work.id) %>
-        </div>
-        <% end %>
-    </div>
-    <h2>down to earth</h2>
-    <div class="row">
-        <% for work in @works %>
-        <div class="col-xs-6 col-md-3">
-            <%= link_to image_tag(work.image.gallery.url, alt: work.name, class: "img-responsive"), work_path(work.id) %>
-        </div>
-        <% end %>
-    </div>
+<div ng-controller="GalleryCtrl">
+    <ng-image-gallery images="images" methods="methods"></ng-image-gallery>
 </div>
+
+<!--<div class="container">-->
+<!--    <h2>la la land</h2>-->
+<!--    <div class="row">-->
+<!--        <% for work in @works %>-->
+<!--        <div class="col-xs-6 col-md-3">-->
+<!--            <%= link_to image_tag(work.image.gallery.url, alt: work.name, class: "gallery-img"), work_path(work.id) %>-->
+<!--        </div>-->
+<!--        <% end %>-->
+<!--    </div>-->
+<!--    <h2>down to earth</h2>-->
+<!--    <div class="row">-->
+<!--        <% for work in @works %>         -->
+<!--        <div class="col-xs-6 col-md-3">-->
+<!--            <%= link_to image_tag(work.image.gallery.url, alt: work.name, class: "img-responsive"), work_path(work.id) %>-->
+<!--        </div>-->
+<!--        <% end %>-->
+<!--    </div>-->
+<!--</div>-->
 

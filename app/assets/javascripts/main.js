@@ -1,5 +1,5 @@
 
-mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop'])
+mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop', 'works', 'thatisuday.ng-image-gallery'])
 .factory('cartService', ['$http', function($http) {
   var cartService = new ShoppingCart("YiceramicsCart");
 
@@ -73,4 +73,15 @@ mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop'])
   
 }]);
 
+
+mainApp.config(function(ngImageGalleryOptsProvider){
+    ngImageGalleryOptsProvider.setOpts({
+        thumbnails  :   true,   
+        inline      :   false,
+        imgBubbles  :   false, 
+        bgClose     :   false,
+        bubbles     :   true, 
+        imgAnim     :   'fade',
+    });
+});
 
