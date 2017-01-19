@@ -15,6 +15,8 @@
 //= require angular
 //= require angular-rails4-templates
 //= require angular-resource
+//= require angular-animate
 //= requre shoppingCart.js
+//= require ng-image-gallery.min.js
 //= requre main.js
 //= require_tree .

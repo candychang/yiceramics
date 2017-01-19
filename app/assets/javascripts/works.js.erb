@@ -1,0 +1,34 @@
+angular.module('works', [])
+.controller('GalleryCtrl', ['$scope', 'productService',
+    function($scope, $productService) {
+        $scope.images = [
+    {
+        thumbUrl: '<%= asset_path("dish_small.jpg") %>',
+        url: '<%= asset_path("dish_small.jpg") %>'
+    },
+    {   
+        thumbUrl: '<%= asset_path("fourtaiwans.jpg") %>',
+        url: '<%= asset_path("fourtaiwans.jpg") %>'
+    }
+    ];
+    
+    $scope.methods = {};
+    
+    $scope.openGallery = function(){
+        $scope.methods.open();
+    
+        scope.methods.open(index); 
+    };
+    
+    $scope.closeGallery = function(){
+        $scope.methods.close();
+    };
+    
+    $scope.nextImg = function(){
+        $scope.methods.next();
+    };
+    
+    $scope.prevImg = function(){
+        $scope.methods.prev();
+    };
+    }]);
