@@ -78,10 +78,11 @@ mainApp.config(function(ngImageGalleryOptsProvider){
     ngImageGalleryOptsProvider.setOpts({
         thumbnails  :   true,   
         inline      :   false,
-        imgBubbles  :   false, 
+        imgBubbles  :   true, 
         bgClose     :   false,
         bubbles     :   true, 
         imgAnim     :   'fade',
     });
 });
 
+        
