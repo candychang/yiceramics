@@ -2,19 +2,49 @@
 <div ng-controller="ShopCtrl" class="container">
     <h1>Your Cart</h1>
     <%= link_to "back to shop", shop_index_path %>
+    <div ng-repeat="error in errorReport" ng-show="errorReport.length > 0">
+      <p>{{error}}</p>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <h3>Items</h3>
-            <div ng-repeat="item in cart.items" class="panel">
+            <a href="#" ng-click="cart.clearCart()">Clear All Items</a>
+            <div ng-repeat="item in cart.items track by $index" class="panel">
                 <img ng-src="{{item.imageURL}}"/>
                 <h3>{{ item.name }}</h3>
-                <p>Price: {{ item.price * item.quantity | currency }}</p>
+                <p>Unit Price: {{ item.price | currency }}</p>
                 <p>Quantity: {{ item.quantity }}</p>
-                <button class="btn btn-secondary"  ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
+                <p ng-show="item.quantity > 1">Total Price: {{ item.price * item.quantity | currency }}</p>
+                
+                  <form name="form" class="css-form" novalidate>
+                  <!-- use type=tel instead of number to prevent spinners -->
+                  <input name="quantity"
+                    class="span3 text-center" type="tel"
+                    ng-model="item.quantity" ng-change="cart.saveItems()" integer/>
+                        
+                  <button 
+                    class="btn btn-success" type="button" 
+                    ng-disabled="outOfStock(item.work_id, item.quantity)"
+                    ng-click="cart.changeQuantity(item.work_id, 1)">+
+                  </button>
+                  <button 
+                    class="btn btn-inverse" type="button" 
+                    ng-disabled="item.quantity <= 1"
+                    ng-click="cart.changeQuantity(item.work_id, -1)">-
+                  </button>
+                  <button class="btn btn-secondary"  type="button"ng-click="cart.removeItem(item.work_id)"</button>Remove from Cart</button>
+                  </br>
+                  <span ng-show="form.quantity.$error.integer">Valid quantity range: 1 to {{getStock(item)}}</span>
+                  <span ng-show="form.quantity.$error.parse">Quantity must be a number</span>
+                  </form>
             </div>
         </div>
         <div class="col-md-4">
-            <h3>Subtotal: {{ cart.totalPrice | currency }}</h3>
+            <h3>Subtotal: {{ cart.getTotalPrice() | currency }}</h3>
+            <h3>Shipping: 13.45</h3>
+            <h3>Tax: {{ cart.getTotalPrice() * .085 | currency }}</h3>
+            <h3>Total: {{cart.getTotalPrice() * 1.085 + 13.45 | currency}}</h3>
+            <a href="#" ng-click="startCheckout()">Checkout Items</a>
         </div>
     </div>
 </div>

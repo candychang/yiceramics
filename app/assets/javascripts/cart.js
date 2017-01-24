@@ -3,6 +3,11 @@ angular.module('cart', [])
     '$scope', '$http', 'cartService',
     function($scope, $http, cartService) {
        $scope.cart = cartService.cart;
+       $scope.updateCart = function() {
+           storeWithExpiration(cart.name, cart);
+       }
+       
+       
     }
     
 ]);

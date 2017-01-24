@@ -1,22 +1,20 @@
 class Work < ActiveRecord::Base
   has_many :cart_items
+  has_many :carts, :through => :cart_items
+  
   mount_uploader :image, ImageUploader
     
-  def in_stock(num_requested=1)
-    return quantity >= num_requested
-  end
-  
-  def add_stock(amt)
-    quantity += amt
-  end
-  
-  def remove_stock(amt)
-    if amt > quantity
-      errors.add(:work, "#{amt} requested, only #{quantity} available")
-      quantity = 0
-    else
-      quantity -= amt
+  def Work.get_stock(id)
+    work = Work.find_by_id(id)
+    reserved = 0
+    work.cart_items.each do |c|
+      reserved += c.quantity
     end
+    return work.quantity - reserved
+  end
+  
+  def Work.check_stock(id, quantity)
+    return get_stock(id) >= quantity
   end
   
 end
