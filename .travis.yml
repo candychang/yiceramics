@@ -4,10 +4,6 @@ rvm:
 before_script:
 before_script:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - bundle exec rackup &  # start a Web server
-  - sleep 3 # give Web server some time to bind to sockets, etc
 script:
 - bundle exec rake assets:precompile
 - bundle exec rake db:test:prepare
