@@ -12,10 +12,11 @@
     </div>
     
     <div ng-repeat="product in inventory" class="col-md-3 panel">
-        <img ng-src="{{product.image.thumb.url}}"/>
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.details }}</p>
-        <p>Size: {{ size }}</p>
+        <img height="60px" ng-src="{{product.image.thumb.url}}"/>
+        
+        <h3><a href="works/{{product.id}}">{{product.name}}</a></h3>
+ 
+        <p>Size: {{ product.size }}</p>
         <p>Clay type: {{ product.clay_type }}</p>
         <p>Firing: {{ product.fire_type }}</p>
         <p>Price: {{ product.price | currency }}</p>
