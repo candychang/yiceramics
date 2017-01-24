@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+- 2.3.0
+before_script:
+  - "export DISPLAY=:99.0"
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc
+script:
+- bundle exec rake db:test:prepare
+- bundle exec rspec spec
+- bundle exec rake jasmine:ci
+cache: bundler
