@@ -9,6 +9,40 @@
   
   <%= csrf_meta_tags %>
 </head>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        <a class="navbar-brand" href="/"> 
+          <span><%= image_tag("yiceramics.png", alt: "Yi Ceramics Logo", height: "30px") %>
+          Yi Ceramics</span>
+        </a>
+      </div>
+      
+      <div class= "collapse navbar-collapse" id="navbar-collapse"">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to("News", posts_path, class: "navbar-link") %>
+          </li>
+          <li>
+            <%= link_to("Gallery", works_path, class: "navbar-link") %>
+          </li>
+          <li>
+            <%= link_to("Shop", shop_index_path, class: "navbar-link") %>
+          </li>
+          <li>
+            <%= link_to("Cart", cart_path, class: "navbar-link") %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 <body ng-app="yiceramics">
 <% flash.each do |key, value| %>
   <%= content_tag :div, value, class: "flash #{key}" %>

@@ -1,7 +1,9 @@
-<% for work in @works %>
-    <div>
-        <%= image_tag work.image.gallery.url %>
-        <%= link_to work.name, work_path(work.id) %>
-        <%= link_to "edit", edit_work_path(work.id) %>
-    </div>
-<% end %>
+<div class="container">
+    <h1>Gallery</h1>
+</div>
+<div ng-controller="GalleryCtrl">
+    <ng-image-gallery images="images" methods="methods"></ng-image-gallery>
+</div>
+
+
+
