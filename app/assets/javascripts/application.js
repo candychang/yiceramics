@@ -17,6 +17,6 @@
 //= require angular-resource
 //= require angular-animate
 //= requre shoppingCart.js
-//= require ng-image-gallery.min.js
+//= require ng-image-gallery.js
 //= requre main.js
 //= require_tree .
