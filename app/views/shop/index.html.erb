@@ -14,7 +14,7 @@
     <div ng-repeat="product in inventory" class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <a href="works/{{product.id}}">
-            <div class="thumbnail-imgframe" style='background-image:url("{{product.image.url}}")' ng-attr-title="{{product.name || undefined}}">
+            <div class="thumbnail-imgframe" style="{{getImageUrl(product)}}" ng-attr-title="{{product.name || undefined}}">
                 
             </div>
             </a>

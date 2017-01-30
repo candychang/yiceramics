@@ -31,6 +31,10 @@ angular.module('shop', [])
             return quantity >= amt;
         };
         
+        $scope.getImageUrl = function(product) {
+            return "background-image:url('" + product.image.gallery.url + "')"
+        }
+        
         $scope.errorReport = [];
         
         $scope.startCheckout = function() {
