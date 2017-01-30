@@ -74,7 +74,7 @@ mainApp = angular.module('yiceramics', ['home', 'posts', 'cart', 'shop', 'works'
 }]);
 
 
-mainApp.config(function(ngImageGalleryOptsProvider){
+mainApp.config(['ngImageGalleryOptsProvider', function(ngImageGalleryOptsProvider){
     ngImageGalleryOptsProvider.setOpts({
         thumbnails  :   true,   
         inline      :   false,
@@ -83,6 +83,6 @@ mainApp.config(function(ngImageGalleryOptsProvider){
         bubbles     :   true, 
         imgAnim     :   'fade',
     });
-});
+}]);
 
         
