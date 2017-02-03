@@ -14,9 +14,11 @@ class OrdersController < ApplicationController
     end
     
     def show
-        @order = Order.find_by_id(params[:id])
-        @items = @order.cart.cart_items.all
-        @status = @order.retrieve_status
+        @order = Order.find(params[:id])
+        if @order
+          @items = @order.cart.cart_items.all
+          @status = @order.retrieve_status
+        end
     end
     
     def create
