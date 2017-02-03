@@ -32,11 +32,11 @@ respond_to :json
           item[:quantity] = stock_left
           new_list << item
           new_item.save
+          flash[:notice] = "Only #{stock_left} left of #{item[:name]}. The quantity in your cart has been adjusted."
           error_messages << "Only #{stock_left} left of #{item[:name]}. The quantity in your cart has been adjusted."
         else
           new_item.destroy
-          item[:quantity] = 0
-          new_list << item
+          flash[:notice] = "Unfortunately, #{item[:name]} is out of stock."
           error_messages << "Unfortunately, #{item[:name]} is out of stock."
           errors = true
         end

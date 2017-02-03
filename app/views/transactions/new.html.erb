@@ -1,9 +1,37 @@
+<div class="container">
+  <%= link_to "Back to Cart", cart_path %>
+  <div class="row">
+    
+      <h2>Checkout</h2>
+      <%= simple_form_for @transaction do |f| %>
+        <div class=" well col-md-8">
+        <h3>Customer Information</h3>
+        <%= f.input :name, :as => "string" %>
+        <%= f.input :email, :as => "email"%>
+        
+        <h3>Shipping Address</h3>
+        <%= effective_address_fields(f, :shipping_address) %>
+        
+        
+        <h3>Payment Information</h3>
+          <div class="form-group" id='dropin-container'></div>
+          <a href="https://www.braintreegateway.com/merchants/qdrys4nw3v2rbgyy/verified" target="_blank">
+            <img src="https://s3.amazonaws.com/braintree-badges/braintree-badge-wide-dark.png" width="280px" height ="44px" border="0"/>
+            </a>
+          
+          <%= f.button :submit, "Purchase Items", class:"btn btn-primary" %>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+          <h2>Cart Items</h2>
+        <% for item in @items %>
+          <%= image_tag(item.work.image.thumb.url) %>
+          <% end %>
+        <h3>Total: <%= @price %></h3>
+      </div>
+      
+      
+  </div>
+  
 
-<div>
-  <h2 >New Transaction</h2>
-  <%= form_tag transactions_path do%>
-    <p>Please enter your payment details:</p>
-    <div id='dropin-container'></div></div>
-    <%=submit_tag "Pay $#{@price}", class: "button mt1" %>
-  <%end%>
 </div>

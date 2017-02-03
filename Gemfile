@@ -35,6 +35,7 @@ gem 'mini_magick', '~> 4.3'
 gem 'braintree'
 gem 'figaro'
 gem 'gon'
+gem 'effective_addresses'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

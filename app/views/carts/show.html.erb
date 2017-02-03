@@ -40,11 +40,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h3>Subtotal: {{ cart.getTotalPrice() | currency }}</h3>
-            <h3>Shipping: 13.45</h3>
-            <h3>Tax: {{ cart.getTotalPrice() * .085 | currency }}</h3>
-            <h3>Total: {{cart.getTotalPrice() * 1.085 + 13.45 | currency}}</h3>
+            <h3>Subtotal: {{ getSubtotal() | currency }}</h3>
+            <h3>Shipping: {{ getShipping() | currency }}</h3>
+            <h3>Tax: {{ getTax() | currency }}</h3>
+            <h3>Total: {{ getTotalPrice() | currency}}</h3>
             <a href="#" ng-click="startCheckout()">Checkout Items</a>
+            <a href="/transactions/new?amount={{getTotalPrice()}}">Checkout Without Angular</a>
         </div>
     </div>
 </div>

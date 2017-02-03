@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     put 'remove/:work_id', to: 'carts#remove', as: :remove_from
     put 'confirm', to: 'carts#confirm'
   end
-  resources :transactions, only: [:new, :create]
+  resources :transactions
   resources :shop, only: [:index, :show]
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
