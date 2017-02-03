@@ -6,6 +6,10 @@ respond_to :json
     new_list = []
     error_messages = []
     
+    if !item_list
+      item_list = []
+    end
+    
     for item in item_list do
       new_item = CartItem.where(cart_id: current_cart.id).where(work_id: item[:work_id]).first
       stock_left = Work.get_stock(item[:work_id])

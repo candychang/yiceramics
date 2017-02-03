@@ -1,7 +1,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :transaction do |f|
+  factory :order do |f|
     f.braintree_id    { Faker::Lorem.characters(12) }
     f.name            { Faker::Name.name }
     f.email           { Faker::Internet.safe_email }

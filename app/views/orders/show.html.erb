@@ -1,7 +1,7 @@
 <div>
-    <h1>Transaction Summary</h1>
-    <p>Transaction Id: <%= @transaction.braintree_id %></p>
-    <p>Amount: <%= @transaction.amount %></p>
+    <h1>Order Summary</h1>
+    <p>Order Id: <%= @order.braintree_id %></p>
+    <p>Amount: <%= @order.amount %></p>
     <% for item in @items %>
         <%=image_tag item.work.image.thumb.url %>
         <h3><%=item.work.name %></h3>
