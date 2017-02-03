@@ -1,40 +1,31 @@
-class TransactionsController < ApplicationController
+class OrdersController < ApplicationController
 #   before_action :authenticate_user!
-#   before_action :check_cart!
-
-#   # Other Code
-
-#   private
-#   def check_cart!
-#     if current_user.get_cart_movies.blank?
-#       redirect_to root_url, alert: "Please add some items to your cart before processing your transaction!"
-#     end
-#   end
+  # skip_before_action :check_cart!, only: [:show, :index]
 
     def new
         @price = current_cart.total_cost
-        @transaction = Transaction.new
+        @order = Order.new
         @items = current_cart.cart_items.all
         gon.client_token = generate_client_token
     end
     
     def index
-        @transactions = Transaction.all
+        @orders = Order.all
     end
     
     def show
-        @transaction = Transaction.find_by_id(params[:id])
-        @items = @transaction.cart.cart_items.all
-        @status = @transaction.retrieve_status
+        @order = Order.find_by_id(params[:id])
+        @items = @order.cart.cart_items.all
+        @status = @order.retrieve_status
     end
     
     def create
-        assign_params = transaction_params.dup
+        assign_params = order_params.dup
         assign_params.delete(:payment_method_nonce)
         
-        @transaction = Transaction.new(assign_params)
+        @order = Order.new(assign_params)
         
-        if @transaction.valid?
+        if @order.valid?
             
             result = Braintree::Transaction.sale(
               :amount => current_cart.total_cost,
@@ -45,15 +36,15 @@ class TransactionsController < ApplicationController
             )
         
             if result.success?
-                @transaction.braintree_id = result.transaction.id
-                @transaction.amount = current_cart.total_cost
-                @transaction.cart = current_cart
-                @transaction.save
+                @order.braintree_id = result.transaction.id
+                @order.amount = current_cart.total_cost
+                @order.cart = current_cart
+                @order.save
                 Work.purchase_items(current_cart)
                 session[:cart] = Cart.create.id
-                redirect_to @transaction, notice: "Congratulations! Your transaction has been successfully processed!"
+                redirect_to @order, notice: "Congratulations! Your order has been successfully processed!"
             else
-                flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
+                flash[:alert] = "Something went wrong while processing your payment information. Please try again!"
                 error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
                 flash[:error] = error_messages
                 gon.client_token = generate_client_token
@@ -80,9 +71,15 @@ class TransactionsController < ApplicationController
         params.permit(:payment_method_nonce)
     end
     
-    def transaction_params
-        params.require(:transaction).permit( :name, :email, :payment_method_nonce, {:shipping_address => EffectiveAddresses.permitted_params})
+    def order_params
+        params.require(:order).permit( :name, :email, :payment_method_nonce, {:shipping_address => EffectiveAddresses.permitted_params})
     end
     
+    # def check_cart!
+    #   if current_cart.cart_items.count == 0
+    #     flash[:notice] = "Please add some items to your cart before checkout!"
+    #     redirect_to shop_index_path
+    #   end
+    # end
     
 end

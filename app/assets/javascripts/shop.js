@@ -32,24 +32,27 @@ angular.module('shop', [])
         };
         
         $scope.getImageUrl = function(product) {
-            return "background-image:url('" + product.image.gallery.url + "')"
+            return "background-image:url('" + product.image.gallery.url + "')";
         }
         
         $scope.getSubtotal = function() {
-            return this.cart.getTotalPrice()
+            return this.cart.getTotalPrice();
         }
         
         $scope.getTax = function() {
-            return this.cart.getTotalPrice() * .085
+            return this.cart.getTotalPrice() * .085;
         }
         
         $scope.getShipping = function() {
-            return 13.45
-        
+            if (this.cart.getTotalCount() > 0) {
+                return 13.45;
+            } else {
+                return 0.00;
+            }
         }
         
         $scope.getTotalPrice = function() {
-            return this.cart.getTotalPrice() + this.getTax() + this.getShipping()
+            return this.cart.getTotalPrice() + this.getTax() + this.getShipping();
         }
         $scope.errorReport = [];
         
@@ -61,7 +64,7 @@ angular.module('shop', [])
                 if (data.errors.length > 0) {
                     productService.loadProducts(true);
                 }
-                 $window.location.href = '/transactions/new';
+                 $window.location.href = '/orders/new';
             });
             
        };
