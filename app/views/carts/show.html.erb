@@ -45,7 +45,6 @@
             <h3>Tax: {{ getTax() | currency }}</h3>
             <h3>Total: {{ getTotalPrice() | currency}}</h3>
             <a href="#" ng-click="startCheckout()">Checkout Items</a>
-            <a href="/transactions/new?amount={{getTotalPrice()}}">Checkout Without Angular</a>
         </div>
     </div>
 </div>
