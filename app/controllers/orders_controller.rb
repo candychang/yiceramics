@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
         if @order
           @items = @order.cart.cart_items.all
           @status = @order.retrieve_status
+        end
     end
     
     def create
