@@ -1,7 +1,7 @@
 angular.module('shop', [])
 .controller('ShopCtrl', [
-    '$scope', '$http', 'cartService', 'productService',
-    function($scope, $http, cartService, productService) {
+    '$scope', '$http', '$window', 'cartService', 'productService',
+    function($scope, $http, $window, cartService, productService) {
         $scope.inventory = productService.products;
         $scope.service = productService;
         // $http.get('/shop.json').success(function(data){
@@ -35,17 +35,33 @@ angular.module('shop', [])
             return "background-image:url('" + product.image.gallery.url + "')"
         }
         
+        $scope.getSubtotal = function() {
+            return this.cart.getTotalPrice()
+        }
+        
+        $scope.getTax = function() {
+            return this.cart.getTotalPrice() * .085
+        }
+        
+        $scope.getShipping = function() {
+            return 13.45
+        
+        }
+        
+        $scope.getTotalPrice = function() {
+            return this.cart.getTotalPrice() + this.getTax() + this.getShipping()
+        }
         $scope.errorReport = [];
         
         $scope.startCheckout = function() {
             $http.put('/cart/confirm', {items: $scope.cart.items}).success(function(data){
                 angular.copy(data.items, $scope.cart.items);
-                alert("updated?");
                 $scope.cart.saveItems();
                 angular.copy(data.errors, $scope.errorReport);
                 if (data.errors.length > 0) {
                     productService.loadProducts(true);
                 }
+                 $window.location.href = '/transactions/new';
             });
             
        };

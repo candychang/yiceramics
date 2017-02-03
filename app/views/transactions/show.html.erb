@@ -1,0 +1,10 @@
+<div>
+    <h1>Transaction Summary</h1>
+    <p>Transaction Id: <%= @transaction.braintree_id %></p>
+    <p>Amount: <%= @transaction.amount %></p>
+    <% for item in @items %>
+        <%=image_tag item.work.image.thumb.url %>
+        <h3><%=item.work.name %></h3>
+        <p><%= item.quantity %></p>
+    <% end %>
+</div>

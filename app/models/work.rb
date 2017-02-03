@@ -17,4 +17,15 @@ class Work < ActiveRecord::Base
     return get_stock(id) >= quantity
   end
   
+  def Work.purchase_items(cart)
+    cart.cart_items.all.each do |c|
+      work = c.work
+      work.quantity -= c.quantity
+      
+      if work.quantity <= 0
+        work.shop_active = false
+      end
+      work.save
+    end
+  end
 end

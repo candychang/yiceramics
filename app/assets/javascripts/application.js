@@ -19,4 +19,5 @@
 //= requre shoppingCart.js
 //= require ng-image-gallery.js
 //= requre main.js
+//= require effective_addresses
 //= require_tree .

@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116011720) do
+ActiveRecord::Schema.define(version: 20170203054710) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "addressable_type"
+    t.integer  "addressable_id"
+    t.string   "category",         limit: 64
+    t.string   "full_name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state_code"
+    t.string   "country_code"
+    t.string   "postal_code"
+    t.datetime "updated_at"
+    t.datetime "created_at"
+  end
+
+  add_index "addresses", ["addressable_id"], name: "index_addresses_on_addressable_id"
+  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
 
   create_table "cart_items", force: :cascade do |t|
     t.decimal  "unit_price",  precision: 12, scale: 3
@@ -34,7 +52,10 @@ ActiveRecord::Schema.define(version: 20161116011720) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "order_id"
   end
+
+  add_index "carts", ["order_id"], name: "index_carts_on_order_id"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -43,18 +64,29 @@ ActiveRecord::Schema.define(version: 20161116011720) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.string   "braintree_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "name"
+    t.string   "email"
+    t.decimal  "amount"
+  end
+
   create_table "works", force: :cascade do |t|
     t.string   "name"
     t.text     "details"
     t.string   "size"
     t.string   "clay_type"
     t.string   "fire_type"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.string   "image"
-    t.integer  "quantity",                            default: 1
-    t.decimal  "price",      precision: 12, scale: 3
+    t.integer  "quantity",                                default: 1
+    t.decimal  "price",          precision: 12, scale: 3
     t.integer  "cone"
+    t.boolean  "shop_active"
+    t.boolean  "gallery_active"
   end
 
 end
