@@ -1,0 +1,14 @@
+
+<div class="container">
+     <div class="breadcrumbs">
+         <%= link_to "Back to Works", admin_works_path %>  
+     </div>
+    <%= image_tag @work.image.gallery.url %>
+    <h1><%= @work.name %></h1>
+    <p><%= @work.size %></p>
+    <p><%= @work.clay_type %></p>
+    <p><%= @work.fire_type %></p>
+    <p><%= @work.details %></p>
+        
+    <%= link_to "Edit Work", edit_admin_work_path, class: "btn btn-primary" %>
+</div>

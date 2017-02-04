@@ -1,0 +1,31 @@
+<div class="container">
+
+        <h1>All Works</h1>
+        <%= link_to "Add New Work", new_admin_work_path, class: "btn btn-primary" %> 
+    
+    <table class="table table-hover">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>In Shop</th>
+            <th>In Gallery</th>
+        </tr>
+    <% for work in @works %>
+        <tr>
+            <td><%= image_tag work.image.thumb.url %></td>
+            <td><%= link_to work.name, admin_work_path(work) %></td>
+            <% if work.shop_active %>
+                <td>x</td>
+            <% else %>
+                <td></td>
+            <% end %>
+            <% if work.gallery_active %>
+                <td>x</td>
+            <% else %>
+                <td></td>
+            <% end %>
+        </tr>
+  
+    <% end %>
+</table>
+</div>

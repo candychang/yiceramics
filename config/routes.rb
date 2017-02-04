@@ -1,14 +1,28 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  # namespace :admin do
-  #   root "admin#index"
-  # end
+  
  
   root "home#index"
+  
+  namespace :admin do
+    resources :works
+    resources :posts
+    resources :orders
+  end
+  
+  scope 'admin' do
+    get    '',         to: 'admins#dashboard', as: :admin_dashboard
+    get    '/login',   to: 'sessions#new'
+    post   '/login',   to: 'sessions#create'
+    delete '/logout',  to: 'sessions#destroy'
+  end
+  
   resources :posts
-  resources :works
+  resources :works, only: [:index, :show]
   resource :cart, only: :show do
     put 'add/:work_id', to: 'carts#add', as: :add_to
     put 'remove/:work_id', to: 'carts#remove', as: :remove_from
@@ -16,6 +30,11 @@ Rails.application.routes.draw do
   end
   resources :orders
   resources :shop, only: [:index, :show]
+  
+
+  
+
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
