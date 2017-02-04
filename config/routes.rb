@@ -21,14 +21,14 @@ Rails.application.routes.draw do
     delete '/logout',  to: 'sessions#destroy'
   end
   
-  resources :posts
+  resources :posts, only: [:index, :show]
   resources :works, only: [:index, :show]
-  resource :cart, only: :show do
-    put 'add/:work_id', to: 'carts#add', as: :add_to
-    put 'remove/:work_id', to: 'carts#remove', as: :remove_from
-    put 'confirm', to: 'carts#confirm'
-  end
-  resources :orders
+  # resource :cart, only: :show do
+  #   put 'add/:work_id', to: 'carts#add', as: :add_to
+  #   put 'remove/:work_id', to: 'carts#remove', as: :remove_from
+  #   put 'confirm', to: 'carts#confirm'
+  # end
+  # resources :orders
   resources :shop, only: [:index, :show]
   
 

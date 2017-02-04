@@ -1,4 +1,7 @@
 <h1>This is the dashboard!</h1>
 <p>Welcome, <%= @admin.name %>!</p>
 
+<%= link_to "Manage Works", admin_works_path, class: "btn btn-primary" %>
+<%= link_to "Manage Posts", admin_posts_path, class: "btn btn-default" %>
+
 <%= link_to "Logout", logout_path, method: "delete" %>

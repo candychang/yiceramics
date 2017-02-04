@@ -4,8 +4,9 @@
 <div class="container">
     <%= image_tag @work.image.thumb.url %>
     <h1><%= @work.name %></h1>
-    <p><%= @work.size %></p>
-    <p><%= @work.clay_type %></p>
-    <p><%= @work.fire_type %></p>
+    <p>Size: <%= @work.size %></p>
+    <p>Price: $<%= @work.price %></p>
+    <p>Clay: <%= @work.clay_type %></p>
+    <p>Fire: <%= @work.fire_type %></p>
     <p><%= @work.details %></p>
 </div>
