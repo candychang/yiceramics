@@ -9,6 +9,7 @@
             <th>Name</th>
             <th>In Shop</th>
             <th>In Gallery</th>
+            <th>Playful</th>
             <th>Delete</th>
         </tr>
     <% for work in @works %>
@@ -21,6 +22,11 @@
                 <td></td>
             <% end %>
             <% if work.gallery_active %>
+                <td>x</td>
+            <% else %>
+                <td></td>
+            <% end %>
+            <% if work.playful %>
                 <td>x</td>
             <% else %>
                 <td></td>

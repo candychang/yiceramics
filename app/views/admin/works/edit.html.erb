@@ -11,6 +11,7 @@
     <%= f.input :details %> 
     <%= f.input :shop_active %>
     <%= f.input :gallery_active %>
+    <%= f.input :playful %>
     <%= f.file_field :image, label: "Image" %>
     <% if f.object.image? %>
         <%= image_tag f.object.image.thumb.url %>
