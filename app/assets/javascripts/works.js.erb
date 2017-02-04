@@ -1,16 +1,20 @@
 angular.module('works', [])
-.controller('GalleryCtrl', ['$scope', 'productService',
-    function($scope, $productService) {
-        $scope.images = [
-    {
-        thumbUrl: '<%= asset_path("dish_small.jpg") %>',
-        url: '<%= asset_path("dish_small.jpg") %>'
-    },
-    {   
-        thumbUrl: '<%= asset_path("fourtaiwans.jpg") %>',
-        url: '<%= asset_path("fourtaiwans.jpg") %>'
-    }
-    ];
+.controller('GalleryCtrl', ['$scope', 'galleryService',
+    function($scope, $galleryService) {
+        $scope.playful_images = [];
+    
+        $scope.serious_images = [];
+        
+        $galleryService.getGallery()
+        .then(function(data) {
+            // promise fulfilled
+            angular.copy(data.playful, $scope.playful_images);
+            angular.copy(data.serious, $scope.serious_images);
+        }, function(error) {
+            console.log('error', error);
+        });
+    
+        
     
     $scope.methods = {};
     

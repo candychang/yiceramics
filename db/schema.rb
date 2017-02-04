@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203225643) do
+ActiveRecord::Schema.define(version: 20170204020554) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "addressable_type"
@@ -87,14 +87,15 @@ ActiveRecord::Schema.define(version: 20170203225643) do
     t.string   "size"
     t.string   "clay_type"
     t.string   "fire_type"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.string   "image"
     t.integer  "quantity",                                default: 1
     t.decimal  "price",          precision: 12, scale: 3
     t.integer  "cone"
     t.boolean  "shop_active"
     t.boolean  "gallery_active"
+    t.boolean  "playful",                                 default: true
   end
 
 end

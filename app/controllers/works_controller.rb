@@ -7,7 +7,26 @@ class WorksController < ApplicationController
   
   def index
       @works = Work.all
-      respond_with @works
+      
+      serious_list = []
+      playful_list = []
+      @works.each do |work|
+        curr_work = {
+          title: work.name,
+          alt: work.name,
+          thumbUrl: work.image.gallery.url,
+          url: work.image.url
+        }
+        
+        if work.playful
+          playful_list << curr_work
+        else
+          serious_list << curr_work
+        end
+      end
+      
+      result = { serious: serious_list, playful: playful_list }.to_json
+      respond_with result
   end
   
   def show
