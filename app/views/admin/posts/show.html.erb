@@ -1,0 +1,10 @@
+<div class="container">
+    
+      <div class="breadcrumbs">
+         <%= link_to "Back to Posts", admin_posts_path %>  
+     </div>
+    <h1><%= @post.title %></h1>
+    <p><%= @post.body %></p>
+    
+    <%= link_to "Edit Post", edit_admin_post_path(@post), class: "btn btn-primary" %>
+</div>

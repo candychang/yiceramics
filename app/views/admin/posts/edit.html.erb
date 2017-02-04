@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="well col-md-6">
+<%= simple_form_for [:admin, @post] do |f| %>
+  <%= f.input :title, label: 'Post Title', error: 'Posts need titles' %>
+  <%= f.input :body, hint: 'Type post here' %>
+  <%= f.button :submit %>
+<% end %>
+</div>
+</div>
