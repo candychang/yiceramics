@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="breadcrumbs">
+         <%= link_to "Back to Works", admin_works_path %>  
+     </div>
 <h1>Edit <%= @work.name %></h1>
 <div class="well col-md-6">
   <%= simple_form_for [:admin, @work] do |f| %>

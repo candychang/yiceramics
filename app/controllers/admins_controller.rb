@@ -4,13 +4,4 @@ class AdminsController < ApplicationController
     def dashboard
         @admin = current_admin
     end
-    
-    private
-    
-    def authenticate_user
-        unless logged_in?
-            flash[:error] = "Must be logged in to see this page"
-            redirect_to login_path
-        end
-    end
 end
