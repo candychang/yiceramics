@@ -47,4 +47,11 @@ FactoryGirl.define do
   factory :cart do 
   end
   
+  factory :admin do |f|
+    f.name                    { Faker::Name.name }
+    f.email                   { Faker::Internet.safe_email }
+    f.password                "password"
+    f.password_confirmation   "password"
+  end
+  
 end
