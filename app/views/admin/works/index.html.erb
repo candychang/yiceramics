@@ -9,6 +9,7 @@
             <th>Name</th>
             <th>In Shop</th>
             <th>In Gallery</th>
+            <th>Delete</th>
         </tr>
     <% for work in @works %>
         <tr>
@@ -24,6 +25,7 @@
             <% else %>
                 <td></td>
             <% end %>
+            <td><%= link_to "Delete", admin_work_path(work), :method => "delete" %></td>
         </tr>
   
     <% end %>

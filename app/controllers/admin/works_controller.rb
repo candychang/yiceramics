@@ -36,6 +36,15 @@ class Admin::WorksController < ApplicationController
       end
   end
   
+  def destroy
+      curr_work = Work.find_by_id(params[:id])
+      if curr_work.destroy
+          redirect_to admin_works_path
+      else
+          flash.now[:error] = "Unable to destroy work"
+      end
+  end
+  
   private
     def work_params
       params.require(:work).permit(:name, :details, :size, :clay_type, :fire_type, :shop_active, :gallery_active, :image, :remove_image)
