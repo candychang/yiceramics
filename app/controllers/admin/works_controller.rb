@@ -47,6 +47,6 @@ class Admin::WorksController < ApplicationController
   
   private
     def work_params
-      params.require(:work).permit(:name, :details, :size, :clay_type, :fire_type, :shop_active, :gallery_active, :image, :remove_image)
+      params.require(:work).permit(:name, :details, :size, :clay_type, :fire_type, :shop_active, :gallery_active, :playful, :image, :remove_image)
     end
 end
