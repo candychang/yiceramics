@@ -9,6 +9,10 @@ class Admin::PostsController < ApplicationController
         @post = Post.find_by_id(params[:id])
     end
     
+    def edit
+        @post = Post.find_by_id(params[:id])
+    end
+    
     def new
       @post = Post.new
     end
